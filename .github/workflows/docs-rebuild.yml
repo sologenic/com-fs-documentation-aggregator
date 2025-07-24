@@ -1,0 +1,40 @@
+
+name: Rebuild and Commit Docs
+
+on:
+  repository_dispatch:
+    types: [update-docs]
+
+jobs:
+  update-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Docs Repo
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Rebuild Documentation
+        run: |
+          REPOS=("sologenic/com-be-reference-service")
+          for REPO in "${REPOS[@]}"; do
+            OWNER=$(echo "$REPO" | cut -d'/' -f1)
+            NAME=$(echo "$REPO" | cut -d'/' -f2)
+            mkdir -p "$NAME"
+
+            URL="https://${{ secrets.PAT }}@raw.githubusercontent.com/$OWNER/$NAME/staging/README.md"
+
+            curl -fL "$URL" -o "$NAME/README.md" || {
+              URL="https://${{ secrets.PAT }}@raw.githubusercontent.com/$OWNER/$NAME/staging/README.md"
+              curl -fL "$URL" -o "$NAME/README.md" || echo "❌ README not found for $REPO"
+            }
+            echo "✅ Downloaded $REPO"
+          done
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.email "ci@github.com"
+          git config --global user.name "GitHub Actions"
+          git add .
+          git commit -m "Auto-rebuild for commit ${GITHUB_SHA::7} from ${{ github.event.client_payload.source_repo }}" || echo "No changes"
+          git push
