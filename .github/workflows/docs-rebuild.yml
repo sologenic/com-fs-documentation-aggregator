@@ -16,7 +16,46 @@ jobs:
 
       - name: Rebuild Documentation
         run: |
-          REPOS=("sologenic/com-be-reference-service")
+          REPOS=(
+            "sologenic/com-be-admin-account-service",
+            "sologenic/com-be-admin-asset-service",
+            "sologenic/com-be-admin-certificate-service",
+            "sologenic/com-be-admin-comment-service",
+            "sologenic/com-be-admin-document-service",
+            "sologenic/com-be-admin-feature-flag-service",
+            "sologenic/com-be-admin-file-service",
+            "sologenic/com-be-admin-jurisdiction-asset-mgmt-service",
+            "sologenic/com-be-admin-jurisdiction-service",
+            "sologenic/com-be-admin-kyc-document-service",
+            "sologenic/com-be-admin-minicms-service",
+            "sologenic/com-be-admin-notification-service",
+            "sologenic/com-be-admin-organization-service",
+            "sologenic/com-be-admin-smart-contract-management-service",
+            "sologenic/com-be-admin-user-service",
+            "sologenic/com-be-aed-service",
+            "sologenic/com-be-alert-service",
+            "sologenic/com-be-asset-service",
+            "sologenic/com-be-auth-firebase-service",
+            "sologenic/com-be-auth-service",
+            "sologenic/com-be-comment-service",
+            "sologenic/com-be-contact-list-service",
+            "sologenic/com-be-document-service",
+            "sologenic/com-be-email-send-service",
+            "sologenic/com-be-email-template-service",
+            "sologenic/com-be-feature-flag-service",
+            "sologenic/com-be-file-service",
+            "sologenic/com-be-holdings-service",
+            "sologenic/com-be-kyc-service",
+            "sologenic/com-be-minicms-service",
+            "sologenic/com-be-notification-service",
+            "sologenic/com-be-open-search-service",
+            "sologenic/com-be-order-management-service",
+            "sologenic/com-be-record-service",
+            "sologenic/com-be-update-service",
+            "sologenic/com-be-user-service",
+            "sologenic/com-be-wallet-service",
+            "sologenic/com-be-reference-service"
+          )
           for REPO in "${REPOS[@]}"; do
             OWNER=$(echo "$REPO" | cut -d'/' -f1)
             NAME=$(echo "$REPO" | cut -d'/' -f2)
