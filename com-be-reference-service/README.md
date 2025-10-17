@@ -14,7 +14,7 @@ The service stores and retrieves references for different subsystems. The base c
 
 ## Enums vs strings
 
-The enum values are passed as their integer values. This can be managed by the implementer by importing hte model and using the constants in there.
+The enum values are passed as their integer values. This can be managed by the implementer by importing the model and using the constants in there.
 
 ### Follow/Like/Watch/Vote
 
@@ -22,7 +22,7 @@ Follow/Like/Watch/Vote is a boolean/binary approach: A user either has a record 
 
 On storage level that means:
 
-- Some key is being {actioned} by some other key at time X
+- Some key is being `{actioned}` by some other key at time X
 
 The removal of a Follow/Like/Watch/Vote leads to removal of that given record.
 
@@ -93,7 +93,7 @@ With a maximum of 20 reference_keys in a single array to prevent overflow of the
 
 The use of the reference_key in the given context means that the FE usually already has a very valid key available to start a query into the reference system, and does not first have to lookup internal reference ids with an initial (open) query to the reference system.
 
-Unknown keys are not added to the result set as empty values (query for single unknwon key will show an `{}` as response).
+Unknown keys are not added to the result set as empty values (query for single unknown key will show an `{}` as response).
 
 Duplicate keys are de-duplicated in the result set.
 
