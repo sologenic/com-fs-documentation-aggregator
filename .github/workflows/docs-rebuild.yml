@@ -62,10 +62,10 @@ jobs:
             NAME=$(echo "$REPO" | cut -d'/' -f2)
             mkdir -p "$NAME"
 
-            URL="https://${{ secrets.PAT }}@raw.githubusercontent.com/$OWNER/$NAME/staging/README.md"
+            URL="https://${{ secrets.PAT }}@raw.githubusercontent.com/$OWNER/$NAME/main/README.md"
 
             curl -fL "$URL" -o "$NAME/README.md" || {
-              URL="https://${{ secrets.PAT }}@raw.githubusercontent.com/$OWNER/$NAME/staging/README.md"
+              URL="https://${{ secrets.PAT }}@raw.githubusercontent.com/$OWNER/$NAME/main/README.md"
               curl -fL "$URL" -o "$NAME/README.md" || echo "❌ README not found for $REPO"
             }
             echo "✅ Downloaded $REPO"
