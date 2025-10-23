@@ -56,7 +56,7 @@ These wordings are choosen like this so that different rendering (top to bottom,
 The notifications schema is driven by protos containing the enums, i18n, mark read, display, targeting and pagination requirements.
 
 Special is the i18n part:
-If the `Body` and/or `Subject` uses `{{PARAMETER}}` placeholders then the body/subject is an i18n styled string.
+If the `Body` and/or `Subject` uses {{PARAMETER}} placeholders then the body/subject is an i18n styled string.
 
 The i18n key for a subject is `{{Type}}_subject` in which `Type` is the string representation of the `Type` value in the `NotificationType` enum.
 

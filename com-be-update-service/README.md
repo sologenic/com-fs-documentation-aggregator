@@ -65,7 +65,7 @@ The nginx has a timeout, which is about 10s (TODO: Verify). To prevent disconnec
 ping
 ```
 
-The server responds with a "pong {instanceID}" message.
+The server responds with a "pong `{instanceID}`" message.
 The instanceID is stable for the duration of the server side running. If there is a crash or if there are multiple instances, the instanceID will change. The client can, when the instanceID changes, to resend the subscriptions.
 
 ### Subscribe to a message (or topic)
