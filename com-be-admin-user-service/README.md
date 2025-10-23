@@ -19,7 +19,7 @@ All admin endpoints are protected by role-based access control and default to th
 
 ## API endpoints details
 
-### GET /api/adminuser/get?{user_id|external_id}=...
+### GET `/api/adminuser/get?{user_id|external_id}=...`
 
 Retrieves the `User` information for the given `user_id` or `external_id`. The `User` information is returned as an `User` object as defined in the model. 
 Request header must include `Network`, `OrganizationID`, and `Authorization` headers.
