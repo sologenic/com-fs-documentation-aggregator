@@ -108,7 +108,7 @@ The temporary files are auto-deleted when TTL is reached, that is configured in 
 #### Params
 
 - `TempFileName`    _string, required_ - the temp filename to commit. Must be identical to "FileName" retured from the file service
-- `PermanentPath`   _string, required_ - base64 string of the pernament path including final filename. Decode string will look like "{app}/{first_level_dir}/{secode_level_dir}/.../{final_filename}
+- `PermanentPath`   _string, required_ - base64 string of the pernament path including final filename. Decode string will look like {app}/{first_level_dir}/{secode_level_dir}/.../{final_filename}
 - `AllowOverwrite`  _boolean, required_ - whether to overwrite the file or not, if the 'PermanentPath' already exists
 - `Network`         _string, required_ -  network environment. One of "mainnet", "testnet" or "devnet"
 
