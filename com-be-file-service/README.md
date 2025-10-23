@@ -52,7 +52,7 @@ Download is allowed for both the temporary and the committed file as long as the
 
 - `filename` _string, required_ - base64 string of the filename. 
 
-*For a temporary file, it's the "FileName" returned by the upload endpoint. For a commited file, the decoded filename param will be in the format, "{app}/{internal_app_structure1}/{internal_app_structure2}/.../{final_file_name}. For instance, in case of NFT file, it could look like "nft/{collection_id}/{internal_id}" or something similar, identical to what the client passed as the "PermanentPath" param in the commit request.
+*For a temporary file, it's the "FileName" returned by the upload endpoint. For a commited file, the decoded filename param will be in the format, `{app}/{internal_app_structure1}/{internal_app_structure2}/.../{final_file_name}`. For instance, in case of NFT file, it could look like "nft/{collection_id}/{internal_id}" or something similar, identical to what the client passed as the "PermanentPath" param in the commit request.
 
 #### Response
 
@@ -142,7 +142,7 @@ The temporary files are auto-deleted when TTL is reached, that is configured in 
 #### Params
 
 - `TempFileName`    _string, required_ - the temp filename to commit. Must be identical to "FileName" retured from the file service
-- `PermanentPath`   _string, required_ - base64 string of the pernament path including final filename. Decode string will look like "{app}/{first_level_dir}/{secode_level_dir}/.../{final_filename}
+- `PermanentPath`   _string, required_ - base64 string of the pernament path including final filename. Decode string will look like `{app}/{first_level_dir}/{secode_level_dir}/.../{final_filename}`
 - `AllowOverwrite`  _boolean, required_ - whether to overwrite the file or not, if the 'PermanentPath' already exists
 - `Network`         _string, required_ -  network environment. One of "mainnet", "testnet" or "devnet"
 
