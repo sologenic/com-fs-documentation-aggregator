@@ -4,7 +4,7 @@ The Order Management Service provides the following RESTFUL interface:
 
 ## Prerequisites for Trading (Asset Issuance and Whitelisting)
 
-Before a user can place an order, two prerequisites must be satisfied automatically by the service:
+Before a user can place an order, two prerequisites are satisfied automatically by the service:
 
 ### 1. Asset Issuance (Lazy Issuance)
 - **Purpose**: Ensure the asset exists on the smart contract for trading
@@ -54,11 +54,7 @@ Before a user can place an order, two prerequisites must be satisfied automatica
    └─ Return signed transaction for user
 ```
 
-**Unauthenticated:**
-
-User:
-
-- GET `/api/ordermgt/user/balances/get?account_addr=...` - retrieves the spendable balances for the given account address in the given network
+## Routes
 
 **Authenticated:**
 
@@ -66,7 +62,6 @@ Order:
 
 - POST `/api/ordermgt/order/create-tx` - Create a transaction (buy/sell/cancel) to be signed by the user
 - POST `/api/ordermgt/order/submit-tx` - Submit a signed transaction to the blockchain
-- GET `/api/ordermgt/order/get` - Retrieve order information from smart contract
 
 ## POST /api/ordermgt/order/purchase
 
@@ -81,7 +76,7 @@ Creates and submits a purchase order to the blockchain network directly for test
 ### Example request
 
 ```bash
-curl -X POST "https://com-be-order-management-service-808447315415.us-central1.run.app/api/ordermgt/order/purchase" \
+curl -X POST "https://comsolotex.sologenic.com/api/ordermgt/order/purchase" \
 -H "Network: testnet" \
 -H "OrganizationID: sologenic" \
 -H "Authorization: Bearer FirebaseJWT" \
@@ -112,70 +107,37 @@ curl -X POST "https://com-be-order-management-service-808447315415.us-central1.r
 
 ```json5
 {
-  tx_hash: "7FFE0685ACDFB25D298E596F4C4812D89649B802CA103F95054FD5F0C092211D",
-  order_details: {
-    id: 211,
-    creator: "testcore1hphhtkzz0tmxqwvn74gm8d3r9770a0gc50fcgc",
-    denom: "mstr_v1-testcore1et29cek95pl0zralsf43u4uply0g9nmxnj7fyt9yfy74spch7fpq3f8j0e",
-    amount: "1",
-    amount_exp: "0",
-    instruction: {
-      limit_price: "250",
-      limit_price_exp: "0",
-      options: "eyJvcmRlcl90eXBlIjoibGltaXQiLCJmaWxsX29yX2tpbGwiOmZhbHNlLCJleHBpcmVzX2F0IjoiMjAyNC0xMS0yOVQyMzo1OTo1OVoifQ==",
+  "tx_hash": "7FFE0685ACDFB25D298E596F4C4812D89649B802CA103F95054FD5F0C092211D",
+  "order_details": {
+    "id": 211,
+    "creator": "testcore1hphhtkzz0tmxqwvn74gm8d3r9770a0gc50fcgc",
+    "denom": "mstr_v1-testcore1et29cek95pl0zralsf43u4uply0g9nmxnj7fyt9yfy74spch7fpq3f8j0e",
+    "amount": "1",
+    "amount_exp": "0",
+    "instruction": {
+      "limit_price": "250",
+      "limit_price_exp": "0",
+      "options": "eyJvcmRlcl90eXBlIjoibGltaXQiLCJmaWxsX29yX2tpbGwiOmZhbHNlLCJleHBpcmVzX2F0IjoiMjAyNC0xMS0yOVQyMzo1OTo1OVoifQ=="
     },
-    hold: {
-      denom: "utestcore",
-      amount: "1000",
-      amount_exp: "1",
+    "hold": {
+      "denom": "utestcore",
+      "amount": "1000",
+      "amount_exp": "1"
     },
-    funds_sent: {
-      denom: "utestcore",
-      amount: "10000",
+    "funds_sent": {
+      "denom": "utestcore",
+      "amount": "10000"
     },
-    order_type: "purchase",
-    order_state: "open",
-    payment_state: null,
-    amount_executed: null,
-    amount_executed_exp: null,
-    used_funds_amount: null,
-    used_funds_amount_exp: null,
-    costs: null,
-    costs_exp: null,
-  },
-}
-```
-
-## GET /api/ordermgt/user/balances/get?account_addr=...
-
-Retrieves the spendable balances for the given account address in the given network
-
-### Example request
-
-```bash
-curl -X GET "https://com-be-order-management-service-808447315415.us-central1.run.app/api/ordermgt/user/balances/get?account_addr=testcore1hphhtkzz0tmxqwvn74gm8d3r9770a0gc50fcgc" \
--H "Content-Type: application/json" \
--H "Network: testnet"
-```
-
-### Example response
-
-```json5
-{
-  balances: [
-    {
-      denom: "mstr_v1-testcore1et29cek95pl0zralsf43u4uply0g9nmxnj7fyt9yfy74spch7fpq3f8j0e",
-      amount: "2",
-    },
-    {
-      denom: "tesla_v1-testcore1et29cek95pl0zralsf43u4uply0g9nmxnj7fyt9yfy74spch7fpq3f8j0e",
-      amount: "17900",
-    },
-    {
-      denom: "utestcore",
-      amount: "494619593",
-    },
-  ],
+    "order_type": "purchase",
+    "order_state": "open",
+    "payment_state": null,
+    "amount_executed": null,
+    "amount_executed_exp": null,
+    "used_funds_amount": null,
+    "used_funds_amount_exp": null,
+    "costs": null,
+    "costs_exp": null
+  }
 }
 ```
 
@@ -193,7 +155,7 @@ Creates a transaction for buy, sell, or cancel orders that needs to be signed by
 ### Example request for Purchase Order
 
 ```bash
-curl -X POST "http://localhost:8080/api/ordermgt/order/create-tx" \
+curl -X POST "https://comsolotex.sologenic.com/api/ordermgt/order/create-tx" \
 -H "Content-Type: application/json" \
 -H "Network: testnet" \
 -H "OrganizationID: sologenic" \
@@ -224,18 +186,18 @@ curl -X POST "http://localhost:8080/api/ordermgt/order/create-tx" \
 
 ```json5
 {
-  msg_hash: "a1b2c3d4e5f6789012345678901234567890abcdef",
-  tx_to_sign: {
-    sender: "testcore1hphhtkzz0tmxqwvn74gm8d3r9770a0gc50fcgc",
-    contract: "testcore1et29cek95pl0zralsf43u4uply0g9nmxnj7fyt9yfy74spch7fpq3f8j0e",
-    msg: "base64EncodedMessage",
-    funds: [
+  "msg_hash": "a1b2c3d4e5f6789012345678901234567890abcdef",
+  "tx_to_sign": {
+    "sender": "testcore1hphhtkzz0tmxqwvn74gm8d3r9770a0gc50fcgc",
+    "contract": "testcore1et29cek95pl0zralsf43u4uply0g9nmxnj7fyt9yfy74spch7fpq3f8j0e",
+    "msg": "base64EncodedMessage",
+    "funds": [
       {
-        denom: "utestcore",
-        amount: "10000",
-      },
-    ],
-  },
+        "denom": "utestcore",
+        "amount": "10000"
+      }
+    ]
+  }
 }
 ```
 
@@ -252,7 +214,7 @@ Submits a signed transaction to the blockchain. This endpoint accepts the signed
 ### Example request
 
 ```bash
-curl -X POST "https://com-be-order-management-service-808447315415.us-central1.run.app/api/ordermgt/order/submit-tx" \
+curl -X POST "https://comsolotex.sologenic.com/api/ordermgt/order/submit-tx" \
 -H "Content-Type: application/json" \
 -H "Network: testnet" \
 -H "Authorization: Bearer FirebaseJWT" \
@@ -265,90 +227,37 @@ curl -X POST "https://com-be-order-management-service-808447315415.us-central1.r
 
 ```json5
 {
-  tx_hash: "7FFE0685ACDFB25D298E596F4C4812D89649B802CA103F95054FD5F0C092211D",
-  order_details: {
-    id: 211,
-    creator: "testcore1hphhtkzz0tmxqwvn74gm8d3r9770a0gc50fcgc",
-    denom: "mstr_v1-testcore1et29cek95pl0zralsf43u4uply0g9nmxnj7fyt9yfy74spch7fpq3f8j0e",
-    amount: "1",
-    amount_exp: "0",
-    instruction: {
-      limit_price: "250",
-      limit_price_exp: "0",
-      options: "eyJvcmRlcl90eXBlIjoibGltaXQiLCJmaWxsX29yX2tpbGwiOmZhbHNlLCJleHBpcmVzX2F0IjoiMjAyNC0xMS0yOVQyMzo1OTo1OVoifQ==",
+  "tx_hash": "7FFE0685ACDFB25D298E596F4C4812D89649B802CA103F95054FD5F0C092211D",
+  "order_details": {
+    "id": 211,
+    "creator": "testcore1hphhtkzz0tmxqwvn74gm8d3r9770a0gc50fcgc",
+    "denom": "mstr_v1-testcore1et29cek95pl0zralsf43u4uply0g9nmxnj7fyt9yfy74spch7fpq3f8j0e",
+    "amount": "1",
+    "amount_exp": "0",
+    "instruction": {
+      "limit_price": "250",
+      "limit_price_exp": "0",
+      "options": "eyJvcmRlcl90eXBlIjoibGltaXQiLCJmaWxsX29yX2tpbGwiOmZhbHNlLCJleHBpcmVzX2F0IjoiMjAyNC0xMS0yOVQyMzo1OTo1OVoifQ=="
     },
-    hold: {
-      denom: "utestcore",
-      amount: "1000",
-      amount_exp: "1",
+    "hold": {
+      "denom": "utestcore",
+      "amount": "1000",
+      "amount_exp": "1"
     },
-    funds_sent: {
-      denom: "utestcore",
-      amount: "10000",
+    "funds_sent": {
+      "denom": "utestcore",
+      "amount": "10000"
     },
-    order_type: "purchase",
-    order_state: "open",
-    payment_state: null,
-    amount_executed: null,
-    amount_executed_exp: null,
-    used_funds_amount: null,
-    used_funds_amount_exp: null,
-    costs: null,
-    costs_exp: null,
-  },
-}
-```
-
-## GET /api/ordermgt/order/get?order_id=...&smart_contract_addr=...
-
-Retrieves the order information for the given order ID from the given smart contract address.
-
-> **Note:**
-
-- This is an authenticated endpoint requiring a valid Firebase JWT token
-- Requires both order_id and smart_contract_addr query parameters
-
-### Example request
-
-```bash
-curl -X GET "https://com-be-order-management-service-808447315415.us-central1.run.app/api/ordermgt/order/get?order_id=201&smart_contract_addr=testcore1et29cek95pl0zralsf43u4uply0g9nmxnj7fyt9yfy74spch7fpq3f8j0e" \
--H "Content-Type: application/json" \
--H "Network: testnet" \
--H "Authorization: Bearer FirebaseJWT"
-```
-
-### Example response
-
-```json5
-{
-  id: 201,
-  creator: "testcore1hphhtkzz0tmxqwvn74gm8d3r9770a0gc50fcgc",
-  denom: "mstr_v1-testcore1et29cek95pl0zralsf43u4uply0g9nmxnj7fyt9yfy74spch7fpq3f8j0e",
-  amount: "1",
-  amount_exp: "0",
-  instruction: {
-    limit_price: "250",
-    limit_price_exp: "0",
-    options: "eyJleHBpcmVzX2F0IjoiMjAyNC0xMS0yOVQyMzo1OTo1OVoiLCJvcmRlcl90eXBlIjoibGltaXQiLCJmaWxsX29yX2tpbGwiOmZhbHNlfQ==",
-  },
-  hold: {
-    denom: "utestcore",
-    amount: "1000",
-    amount_exp: "1",
-  },
-  funds_sent: {
-    denom: "utestcore",
-    amount: "10000",
-  },
-  order_type: "purchase",
-  order_state: "open",
-  payment_state: null,
-  amount_executed: null,
-  amount_executed_exp: null,
-  used_funds_amount: null,
-  used_funds_amount_exp: null,
-  costs: null,
-  costs_exp: null,
+    "order_type": "purchase",
+    "order_state": "open",
+    "payment_state": null,
+    "amount_executed": null,
+    "amount_executed_exp": null,
+    "used_funds_amount": null,
+    "used_funds_amount_exp": null,
+    "costs": null,
+    "costs_exp": null
+  }
 }
 ```
 
