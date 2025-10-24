@@ -356,6 +356,7 @@ curl -X GET "https://com-be-order-management-service-808447315415.us-central1.ru
 
 The application uses the following environment parameters:
 
+- `ACCOUNT_STORE` - the address for the account store service (e.g., "localhost:50051")
 - `USER_STORE` - the address for the user store service (e.g., "localhost:50049")
 - `ROLE_STORE` - the address for the role store service (e.g., "localhost:50066")
 - `FEATURE_FLAG_STORE` - the address for the feature flag store service (e.g., "localhost:50061")
