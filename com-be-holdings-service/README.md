@@ -6,7 +6,7 @@ The Holdings Service provides API interfaces that manages holding within an orga
 
 **Authenticated:**
 
-* GET `/api/holdings/get?denom=...` - retrive a single holding for a user and denom
+* GET `/api/holdings/get?denom=...` - retrieve a single holding for a user and denom
 * GET `/api/holdings/list` - retrieve a list of holdings for a user, representing a user's portfolio
 * GET `/api/holdings/graph?window=...&series=...` - retrieve portfolio performance over time as Asset Epoch Data (AEDs)
 

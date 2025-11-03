@@ -49,7 +49,7 @@ The goal of this structure is to be able to only create producers and have a sta
 * `TO`
 * `CONTENT`
 
-These wordings are choosen like this so that different rendering (top to bottom, or in a different language from right to left) are not yet opiniated into the descriptor.
+These wordings are chosen like this so that different rendering (top to bottom, or in a different language from right to left) are not yet opiniated into the descriptor.
 
 ### i18n & display rules
 
@@ -84,7 +84,7 @@ In which the order of the text and values can be different in different language
 SOMENOTIFICATION: "Je hebt  {{currency}} {{amount}} ontvangen"
 ```
 
-The i18n lines in itself will not contain any layout related information/formatting. This is such taht the i18n files in itself can be re-used to output not just HTML but also plain text, JSON, Markdown, etc. and thus be consumable by any application.
+The i18n lines in itself will not contain any layout related information/formatting. This is such that the i18n files in itself can be re-used to output not just HTML but also plain text, JSON, Markdown, etc. and thus be consumable by any application.
 
 Since the BE needs to store the values for the placeholders at the moment of creation of the message, a dynamic return format for the message is required so the the parsing application can parse the message and replace the placeholders with the correct values.
 
@@ -242,7 +242,7 @@ Marks the notifications with the given keys as read.
 *Important note:* An admin/marketing/maintenance notification has 1 id for all users. This is done so that a message sent by the admin/marketing/maintenance team is shown at once to all users. When the message is marked as read, the backend takes care that the message is marked read for the given user only.
 For practical purposes the list of keys should not exceed 100 keys. See the readall chapter in case more drastic read actions are required.
 
-Since marking messages read takes time, it is adviced that the FE marks the messages read by themselves to prevent having to wait for the backend to respond.
+Since marking messages read takes time, it is advised that the FE marks the messages read by themselves to prevent having to wait for the backend to respond.
 The backend response can be a pre-emptive 200OK (e.g. The data is being processed, might not be done yet. It can just be an "I heard you, will do" response).
 
 ### Example put
