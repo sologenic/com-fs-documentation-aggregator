@@ -80,7 +80,7 @@ Returns:
           "BuildingNumber": "459"
         },
         {
-          "Contry": "Customer-focused",
+          "Country": "Customer-focused",
           "Town": "payment",
           "State": "Kansas",
           "PostCode": "parse Handmade Frozen",

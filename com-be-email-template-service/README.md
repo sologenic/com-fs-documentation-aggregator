@@ -405,7 +405,7 @@ curl -X POST \
     "Name": "Custom KYC Approval Template",
     "Subject": "Your KYC Verification is Complete",
     "Description": "Organization-specific template sent when a user's KYC is approved",
-    "HTML": "<!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Your KYC is Approved</title>\n    <style>...</style>\n</head>\n<body>\n    <div class=\"container\">\n        <div class=\"header\">\n            <h2>KYC Veriation Complete</h2>\n        </div>\n        <div class=\"content\">\n            <h1>Hello, {{.UserName}}!</h1>\n            <p>Your KYC verification has been approved. You may now access all platform features.</p>\n        </div>\n        <div class=\"footer\">\n            <p>Best regards,<br/>The Example Company Team</p>\n        </div>\n    </div>\n</body>\n</html>",
+    "HTML": "<!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Your KYC is Approved</title>\n    <style>...</style>\n</head>\n<body>\n    <div class=\"container\">\n        <div class=\"header\">\n            <h2>KYC Variation Complete</h2>\n        </div>\n        <div class=\"content\">\n            <h1>Hello, {{.UserName}}!</h1>\n            <p>Your KYC verification has been approved. You may now access all platform features.</p>\n        </div>\n        <div class=\"footer\">\n            <p>Best regards,<br/>The Example Company Team</p>\n        </div>\n    </div>\n</body>\n</html>",
   }
 }'
 ```
