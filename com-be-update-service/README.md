@@ -45,7 +45,7 @@ The app has to retrieve additional information from certain stores to be able to
 * Notifications: Again we might want the account the message is for
 * etc
 
-Main risk is stability of the service when it is connected to many other services. If this turns out to be a problem, isolate the code in a listener (e.g. non-user facing service) and introduce a new pubsub topic to which that listener publishes messages: That way this update listener will only have to listen on one topic with complete data and thus not require all these connections. Another alternative would be to introduce a new message in general which just contains those keys however taht would make every sender responsible for being aware of all the changes which might occur in other places and make the messages tightly coupled (so certainly not the preferred method).
+Main risk is stability of the service when it is connected to many other services. If this turns out to be a problem, isolate the code in a listener (e.g. non-user facing service) and introduce a new pubsub topic to which that listener publishes messages: That way this update listener will only have to listen on one topic with complete data and thus not require all these connections. Another alternative would be to introduce a new message in general which just contains those keys however that would make every sender responsible for being aware of all the changes which might occur in other places and make the messages tightly coupled (so certainly not the preferred method).
 
 ### Initial connection
 
