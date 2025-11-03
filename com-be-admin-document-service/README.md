@@ -1,6 +1,6 @@
 # Admin document service
 
-The admin document service provides document lifecycle management with version control, status managment for organizational compliance.
+The admin document service provides document lifecycle management with version control, status management for organizational compliance.
 
 ## Document Lifecycle Management
 

@@ -5,7 +5,7 @@ The file service provides the following RESTFUL interface:
 **Authenticated:**
 
 * POST `/api/adminfile/upload`: Upload a file to the temporary location in the storage, returns temporary filename in base64.
-* GET `/api/adminfile/exist?filename{filename_base64}&commited={true_for_commited_file}`: Check if a file exists with the filename
+* GET `/api/adminfile/exist?filename{filename_base64}&committed={true_for_committed_file}`: Check if a file exists with the filename
 
 ## Authenticated requests
 
@@ -68,16 +68,16 @@ curl --location 'https://comsolotex.sologenic.org/api/adminfile/upload' \
 
 ### Exist
 
-`GET /api/adminfile/exist?filename={filename_base64}&commited={true_for_commited_file}`
+`GET /api/adminfile/exist?filename={filename_base64}&committed={true_for_committed_file}`
 
 Check if a file is stored in the storage. Returns true if it's found by filename.
 
-An optional param "commited" should be passed if the user wants to check if a commited file is found from the permanent location. If not passed, it's set to be false and searches the filename from the temporary location of the storage.
+An optional param "committed" should be passed if the user wants to check if a committed file is found from the permanent location. If not passed, it's set to be false and searches the filename from the temporary location of the storage.
 
 #### Param
 
 - `filename` _string, required_ - filename in base64 string.
-- `commited` _boolean, optional_ - true if the file is supposed to be already commited. When not provived, it defaults to false.
+- `committed` _boolean, optional_ - true if the file is supposed to be already committed. When not provided, it defaults to false.
 
 #### Response
 
@@ -90,7 +90,7 @@ An optional param "commited" should be passed if the user wants to check if a co
 #### Example
 
 ```bash
-curl --location 'https://comsolotex.sologenic.org/api/adminfile/exist?filename=bmZ0L3JFeXpwS3V2MXRnQVRFNkZadmdvYVh0Z3VYTU1qV3lxYlIvNDEwNDQ2ZTUtZTU5ZS00NTczLWE3ZDItYjJiZjc2MjI3NzVi&commited=true' \
+curl --location 'https://comsolotex.sologenic.org/api/adminfile/exist?filename=bmZ0L3JFeXpwS3V2MXRnQVRFNkZadmdvYVh0Z3VYTU1qV3lxYlIvNDEwNDQ2ZTUtZTU5ZS00NTczLWE3ZDItYjJiZjc2MjI3NzVi&committed=true' \
 --header 'address: rL54wzknUXxqiC8Tzs6mzLi3QJTtX5uVK6' \
 --header 'Authorization: Bearer: ...' \
 --header 'OrganizationID: 72c4c072-2fe4-4f72-ae9d-d9d52a05fd71' \
@@ -103,19 +103,19 @@ curl --location 'https://comsolotex.sologenic.org/api/adminfile/exist?filename=b
 
 Move an uploaded temp file to the permanent location of the storage with final name.
 
-The temporary files are auto-deleted when TTL is reached, that is configured in the storage. When the temporary file is not found, it returns "FileFound" false with and emtpy string for "PublicURL" in the response, in which case the client is responsilbe to re-upload the file and commit, again.
+The temporary files are auto-deleted when TTL is reached, that is configured in the storage. When the temporary file is not found, it returns "FileFound" false with and empty string for "PublicURL" in the response, in which case the client is responsilbe to re-upload the file and commit, again.
 
 #### Params
 
-- `TempFileName`    _string, required_ - the temp filename to commit. Must be identical to "FileName" retured from the file service
-- `PermanentPath`   _string, required_ - base64 string of the pernament path including final filename. Decode string will look like `{app}/{first_level_dir}/{secode_level_dir}/.../{final_filename}`
+- `TempFileName`    _string, required_ - the temp filename to commit. Must be identical to "FileName" returned from the file service
+- `PermanentPath`   _string, required_ - base64 string of the permanent path including final filename. Decode string will look like `{app}/{first_level_dir}/{secode_level_dir}/.../{final_filename}`
 - `AllowOverwrite`  _boolean, required_ - whether to overwrite the file or not, if the 'PermanentPath' already exists
 - `Network`         _string, required_ -  network environment. One of "mainnet", "testnet" or "devnet"
 
 #### Response
 
 - `FileFound`  _boolean, required_ - if the temp filename is found from the storage.
-- `PublicURL`  _string, required_ - publically accessable link of the file provided by the storage. Only accessible if the storage is configured for the public access. 
+- `PublicURL`  _string, required_ - publicly accessible link of the file provided by the storage. Only accessible if the storage is configured for the public access. 
 - `Network`    _string, required_ - network environment. One of "mainnet", "testnet" or "devnet"
 
 ## Testing FE
