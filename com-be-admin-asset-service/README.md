@@ -290,12 +290,11 @@ The following start parameters are required:
 - `ATG_BROKER_CONTRACT_ADDRESS`: the main smart contract address of the ATG Broker contract on the Coreum network
 - `ASSET_EXTENSION_CODE`: the asset extension code for Coreum assets
 - `ORDER_HUB_CONTRACT_ADDRESS`: the order hub smart contract address on the Coreum network
-- `CROWDFUND_CONTRACT_CODE_ID`: the crowdfunding smart contract code ID on the Coreum network
 
 ### Blockchain Configuration
 
-- `KEYRING_CONFIGS`: JSON array of keyring configurations containing network, keyname, and mnemonic for smart contract interactions
 - `NETWORKS`: JSON object containing WebSocket and gRPC network configurations for Coreum blockchain connectivity
+- `SINGLE_NETWORK`: JSON object containing WebSocket and gRPC network configurations for ONLY ONE network of the Coreum blockchain
 
 ### Application Configuration
 
