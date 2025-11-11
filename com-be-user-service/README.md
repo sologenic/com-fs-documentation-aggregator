@@ -12,12 +12,15 @@ The User Service provides API interfaces that manages (normal) users within an o
 
 - GET `/api/user/get/alias?filter=...` - retrieves an array of user aliases for a specified filter
 - POST `/api/user/create` - creates a new user under an organization
+- POST `/api/kyc/webhook` - allows KYC Provider to post events regarding inquiries and kyc processes of users
 
 **Authenticated:**
 
-- GET `/api/user/get?user_id=...` - retrieves user information for a specified user
+- GET `/api/user/get` - retrieves user information for the specified user
 - PUT `/api/user/update` - updates the user information for a specified user within the organization
 - PUT `/api/user/disable` - disables a user
+- PUT `/api/user/addtoorg` - adds a user to an organization (or an organization to a user: Depends on your perspective)
+- POST `/api/kyc/start` - allows user to start the process of KYC with Organization KYC Provider
 
 > **Note:** All authenticated endpoints require a valid Firebase token in Authorization header. The token must be:
 >
@@ -104,8 +107,8 @@ curl -X POST "https://comsolotex.sologenic.org/api/user/create" \
 
 ```json5
 {
-  UserID: "sg.org.testnet11335@gmail.com",
-  Network: 2,
+  "UserID": "sg.org.testnet11335@gmail.com",
+  "Network": 2,
 }
 ```
 
@@ -113,7 +116,7 @@ curl -X POST "https://comsolotex.sologenic.org/api/user/create" \
 
 > **Note:** `OrganizationID` is a mandatory parameter that enforces proper organizational data boundaries, ensuring each tenant can only access records within their designated scope.
 
-### GET /api/user/get?user_id=...
+### GET /api/user/get
 
 Retrieves user information for a specified `User`. The request must include the `UserID` parameter in the query string as `user_id`.
 Request header must include `Network`, `OrganizationID`, and `Authorization` headers.
@@ -121,7 +124,7 @@ Request header must include `Network`, `OrganizationID`, and `Authorization` hea
 ##### Example request
 
 ```bash
-curl -X GET "https://comsolotex.sologenic.org/api/user/get?user_id=test@gmail.com" \
+curl -X GET "https://comsolotex.sologenic.org/api/user/get \
 -H "Content-Type: application/json" \
 -H "Authorization: Bearer: ...." \
 -H "Network: mainnet"
@@ -194,8 +197,15 @@ curl -X GET "https://comsolotex.sologenic.org/api/user/get?user_id=test@gmail.co
 
 ### PUT /api/user/update
 
-Updates the user information for a specified `User`. The request body must contain the `User` object as defined in the model.
+Updates the user information for a specified `User`.
 Request header must include `Network`, `OrganizationID`, and `Authorization` headers.
+
+The update accepts the following:
+
+- Full user object as defined in the model
+- Partial user object with only the fields to update
+
+If a partial user object is provided, only the fields that are provided will be updated. If a field needs to be nilled/emptied, it should be included in the request with the corresponding empty value (most of the time an empty string or 0 (one of the DO_NOT_USE or NOT_APPLICABLE values from the enums in the model)).
 
 ##### Update constraints
 
@@ -208,6 +218,11 @@ Immutable fields:
 - `MetaData.CreatedAt`: original creation timestamp is preserved
 - `MetaData.Network`: network on the account cannot be altered
 - `User.Role`: always enforced as `NORMAL_USER`
+- `OrganizationIDs`: organization IDs array cannot be altered
+
+Some fields are specifically handled to allow certain updates only. These are:
+
+- `Wallets`: Any new wallets added, are registered, existing wallets are not removed or updated.
 
 > **Note:** Status won't be updated using this endpoint. Use the `/api/user/status` endpoints for status updates.
 
@@ -250,8 +265,8 @@ curl -X PUT "https://comsolotex.sologenic.org/api/user/update" \
 
 ```json5
 {
-  UserID: "lahey@abc.com",
-  Network: 1,
+  "UserID": "lahey@abc.com",
+  "Network": 1,
 }
 ```
 
@@ -275,7 +290,7 @@ curl -X PUT "https://comsolotex.sologenic.org/api/user/disable" \
 ### POST /api/kyc/start
 
 Allows user to start the process of KYC with Organization KYC Provider
-Request header must include `Network`, `OrganizationID` headers.
+Request header must include `Network`, `OrganizationID` and `Authorization` headers.
 
 #### Example request
 
@@ -301,11 +316,58 @@ Allows KYC Provider to post events regarding inquiries and kyc processes of user
 ```bash
 curl -X POST "https://comsolotex.sologenic.org/api/kyc/webhook" \
 -H "Content-Type: application/json" \
--H "Authorization: Bearer ..." \
 -H "Network: mainnet"
 ```
 
 > **Note**: The service config needs to be always on for the go routines used to process the data to execute reliably
+
+### PUT /api/user/addtoorg
+
+Adds a user to an organization (or an organization to a user: Depends on your perspective)
+Request header must include `Network`, `OrganizationID`, and `Authorization` headers.
+
+***Please note:***
+
+This function only works from TX to other organizations.
+An organization can make a user call this endpoint to add the organization to their account. The difference is that the OrganizationID in the header is not the organization ID of the current organization, but the default TX organization ID instead.
+
+#### Example request
+
+```bash
+curl -X PUT "https://comsolotex.sologenic.org/api/user/addtoorg" \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer: ...." \
+-H "Network: mainnet" \
+-H "OrganizationID: sologenic" \
+-d '{
+    "OrganizationID": "72c4c072-2fe4-4f72-ae9d-d9d52a05fd71"
+}'
+```
+
+In which case the organization "72c4c072-2fe4-4f72-ae9d-d9d52a05fd71" will be added to the user's account, and the user will be setup for usage in the new organization.
+
+#### Example response
+
+Success:
+HTTP 200 OK
+
+Failure due to invalid organization ID in header:
+HTTP 400 Bad Request
+
+```json5
+{
+  "error": "Invalid organization ID"
+}
+```
+
+Failure due to organization not found (as provided in the request body):
+HTTP 404 Not Found
+
+```json5
+{
+  "error": "Organization not found"
+}
+```
 
 ## Application start parameters
 
