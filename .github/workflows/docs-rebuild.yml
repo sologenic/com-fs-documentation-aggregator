@@ -54,6 +54,7 @@ jobs:
             "sologenic/com-be-record-service"
             "sologenic/com-be-update-service"
             "sologenic/com-be-user-service"
+            "sologenic/com-be-user-session-service"
             "sologenic/com-be-wallet-service"
             "sologenic/com-be-reference-service"
           )
